@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:quotz/services/quotes.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([]);
     _quotesService = QuotesService();
     _loading = true;
     _quotesService.getQuote().then((String quote){
