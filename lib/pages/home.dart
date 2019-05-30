@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quotz/services/quotes.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,6 +7,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _loading = false;
+  String _quote;
+  QuotesService _quotesService;
+
+  @override
+  void initState() {
+    _quotesService = QuotesService();
+    _loading = true;
+    _quotesService.getQuote().then((String quote){
+      setState(() {
+        _quote = quote;
+        _loading = false;  
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,17 +37,25 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             Expanded(
-              flex: 5,
               child: Container(
                 padding: EdgeInsets.only(top: 30),
                 child: _buildTime(),
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Text("\"lodxjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj\"", style: TextStyle(
-                fontSize: 40
-              ),),
+            _loading ? Center(
+              child: CircularProgressIndicator(),
+            ) : RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(children: [
+                // TextSpan(text: "\" ",
+                // style: TextStyle(color: Colors.white)),
+                TextSpan(text: _quote),
+                // TextSpan(text: " \"", 
+                // style: TextStyle(color: Colors.white)),
+              ], style: TextStyle(
+                fontSize: 20,
+                color: Colors.white54,
+              )),
             )
           ],
         ),
