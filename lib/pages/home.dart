@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:quotz/services/quotes.dart';
 
@@ -11,6 +12,9 @@ class _HomePageState extends State<HomePage> {
   String _quote;
   QuotesService _quotesService;
 
+  TimeOfDay _timeOfDay;
+  Timer _timer;
+
   @override
   void initState() {
     _quotesService = QuotesService();
@@ -21,6 +25,13 @@ class _HomePageState extends State<HomePage> {
         _loading = false;  
       });
     });
+
+    _timer = Timer.periodic(Duration(milliseconds: 500), (Timer t){
+      setState(() {
+       _timeOfDay = TimeOfDay.now(); 
+      });
+    });
+
     super.initState();
   }
 
@@ -65,11 +76,12 @@ class _HomePageState extends State<HomePage> {
 
   Row _buildTime() {
     double space = 5;
-    double textSize = 130;
+    double textSize = 120;
+    String t = _timeOfDay.format(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("9", style: TextStyle(
+        Text("${t.split(":")[0]}", style: TextStyle(
           fontSize: textSize
         )),
         SizedBox(width: space,),
@@ -77,17 +89,23 @@ class _HomePageState extends State<HomePage> {
           fontSize: textSize
         )),
         SizedBox(width: space,),
-        Text("30", style: TextStyle(
+        Text("${t.split(":")[1].split(" ")[0]}", style: TextStyle(
           fontSize: textSize
         )),
-        SizedBox(width: space,),
+        SizedBox(width: space * 2,),
         Padding(
           padding: const EdgeInsets.only(top: 90),
-          child: Text("PM", style: TextStyle(
-            fontSize: 30
+          child: Text("${t.split(":")[1].split(" ")[1]}", style: TextStyle(
+            fontSize: 20
           )),
         )
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 }
