@@ -12,12 +12,18 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String _refreshPeriod = RefreshPeriod.hours;
+  // String _refreshPeriod = RefreshPeriod.hours;
   // int _refreshPeriodValue = 2;
 
-  String _quoteLength = QuoteLength.random;
+  // String _quoteLength = QuoteLength.random;
 
   TextEditingController _editingController = TextEditingController();
+
+  @override
+  void initState() {
+    _editingController.text = widget.settings.refreshPeriodValue.toString();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +39,8 @@ class _SettingsPageState extends State<SettingsPage> {
             int r = int.tryParse(_editingController.text);
             if(r != null)
               widget.settings.refreshPeriodValue = r;
+
+            Navigator.of(context).pop();
           },
         ),
       ),
@@ -59,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Flexible(
                           child: TextFormField(
                             controller: _editingController,
-                            initialValue: widget.settings.refreshPeriodValue.toString(),
+                            // initialValue: widget.settings.refreshPeriodValue.toString(),
                             cursorColor: Colors.white54,
                             style: new TextStyle(
                               color: Colors.white,
@@ -67,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             keyboardType: TextInputType.numberWithOptions(decimal: false, signed: false),
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(30),
@@ -92,7 +100,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           child: Row(
                             children: <Widget>[
-                              Text(_refreshPeriod),
+                              Text(widget.settings.refreshPeriod),
                               Icon(Icons.arrow_drop_down)
                             ],
                           ),
@@ -126,7 +134,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: Row(
                       children: <Widget>[
-                        Text(_quoteLength),
+                        Text(widget.settings.quoteLength),
                         Icon(Icons.arrow_drop_down)
                       ],
                     ),
@@ -162,9 +170,8 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: EdgeInsets.only(left: 5),
             onTap: (){
               setState(() {
-                _refreshPeriod = RefreshPeriod.seconds; 
+                widget.settings.refreshPeriod = RefreshPeriod.seconds; 
               });
-              widget.settings.refreshPeriod = _refreshPeriod;
               Navigator.of(context).pop();
             },
           ),
@@ -176,9 +183,8 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: EdgeInsets.only(left: 5),
             onTap: (){
               setState(() {
-                _refreshPeriod = RefreshPeriod.minutes; 
+                widget.settings.refreshPeriod = RefreshPeriod.minutes; 
               });
-              widget.settings.refreshPeriod = _refreshPeriod;
               Navigator.of(context).pop();
             },
           ),
@@ -190,9 +196,8 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: EdgeInsets.only(left: 5),
             onTap: (){
               setState(() {
-                _refreshPeriod = RefreshPeriod.hours; 
+                widget.settings.refreshPeriod = RefreshPeriod.hours; 
               });
-              widget.settings.refreshPeriod = _refreshPeriod;
               Navigator.of(context).pop();
             },
           ),
@@ -215,9 +220,8 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: EdgeInsets.only(left: 5),
             onTap: (){
               setState(() {
-                _quoteLength = QuoteLength.random; 
+                widget.settings.quoteLength = QuoteLength.random; 
               });
-              widget.settings.quoteLength = _quoteLength;
               Navigator.of(context).pop();
             },
           ),
@@ -229,9 +233,8 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: EdgeInsets.only(left: 5),
             onTap: (){
               setState(() {
-                _quoteLength = QuoteLength.short; 
+                widget.settings.quoteLength = QuoteLength.short; 
               });
-              widget.settings.quoteLength = _quoteLength;
               Navigator.of(context).pop();
             },
           ),
@@ -243,9 +246,8 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: EdgeInsets.only(left: 5),
             onTap: (){
               setState(() {
-                _quoteLength = QuoteLength.medium; 
+                widget.settings.quoteLength = QuoteLength.medium; 
               });
-              widget.settings.quoteLength = _quoteLength;
               Navigator.of(context).pop();
             },
           ),
@@ -257,9 +259,8 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: EdgeInsets.only(left: 5),
             onTap: (){
               setState(() {
-                _quoteLength = QuoteLength.long; 
+                widget.settings.quoteLength = QuoteLength.long; 
               });
-              widget.settings.quoteLength = _quoteLength;
               Navigator.of(context).pop();
             },
           ),

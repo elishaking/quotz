@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:quotz/models/settings.dart';
 import 'package:quotz/pages/settings.dart';
 import 'package:quotz/services/quotes.dart';
+import 'package:quotz/services/settings.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  SettingsService _settingsService;
+  Settings _settings;
+
   bool _loading = false;
   String _quote;
   QuotesService _quotesService;
@@ -18,19 +22,23 @@ class _HomePageState extends State<HomePage> {
   TimeOfDay _timeOfDay;
   Timer _timer, _quoteTimer;
 
-  Settings _settings;
-
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
-    _quotesService = QuotesService();
-    _getQuote();
-    _timeOfDay = TimeOfDay.now(); 
-  
-    _quoteTimer = Timer.periodic(Duration(seconds: 5), (Timer t){
+
+    _settingsService = SettingsService();
+    _settingsService.getSettings().then((Settings settings){
+      _settings = settings;
+
+      _quotesService = QuotesService();
       _getQuote();
+      _quoteTimer = Timer.periodic(_getDuration(), (Timer t){
+        _getQuote();
+      });
     });
 
+
+    _timeOfDay = TimeOfDay.now(); 
     _timer = Timer.periodic(Duration(milliseconds: 500), (Timer t){
       setState(() {
        _timeOfDay = TimeOfDay.now(); 
@@ -40,9 +48,19 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  Duration _getDuration() {
+    if(_settings.refreshPeriod == RefreshPeriod.seconds){
+      return Duration(seconds: _settings.refreshPeriodValue);
+    } else if(_settings.refreshPeriod == RefreshPeriod.seconds){
+      return Duration(minutes: _settings.refreshPeriodValue);
+    } else {
+      return Duration(hours: _settings.refreshPeriodValue);
+    }
+  }
+
   void _getQuote() {
     _loading = true;
-    _quotesService.getQuote().then((String quote){
+    _quotesService.getQuote(_settings).then((String quote){
       setState(() {
         _quote = quote;
         _loading = false;  
@@ -63,7 +81,12 @@ class _HomePageState extends State<HomePage> {
             onPressed: (){
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => SettingsPage(_settings)
-              ));
+              )).then((_){
+                _quoteTimer.cancel();
+                _quoteTimer = Timer.periodic(_getDuration(), (Timer t){
+                  _getQuote();
+                });
+              });
             },
           )
         ],
