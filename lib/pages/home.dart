@@ -14,18 +14,17 @@ class _HomePageState extends State<HomePage> {
   QuotesService _quotesService;
 
   TimeOfDay _timeOfDay;
-  Timer _timer;
+  Timer _timer, _quoteTimer;
 
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
     _quotesService = QuotesService();
-    _loading = true;
-    _quotesService.getQuote().then((String quote){
-      setState(() {
-        _quote = quote;
-        _loading = false;  
-      });
+    _getQuote();
+    _timeOfDay = TimeOfDay.now(); 
+  
+    _quoteTimer = Timer.periodic(Duration(seconds: 5), (Timer t){
+      _getQuote();
     });
 
     _timer = Timer.periodic(Duration(milliseconds: 500), (Timer t){
@@ -35,6 +34,16 @@ class _HomePageState extends State<HomePage> {
     });
 
     super.initState();
+  }
+
+  void _getQuote() {
+    _loading = true;
+    _quotesService.getQuote().then((String quote){
+      setState(() {
+        _quote = quote;
+        _loading = false;  
+      });
+    });
   }
 
   @override
@@ -56,7 +65,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             _loading ? Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white54),),
             ) : RichText(
               textAlign: TextAlign.center,
               text: TextSpan(children: [
@@ -108,6 +117,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     _timer.cancel();
+    _quoteTimer.cancel();
     super.dispose();
   }
 }
