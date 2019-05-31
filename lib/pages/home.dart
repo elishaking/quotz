@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quotz/pages/settings.dart';
 import 'package:quotz/services/quotes.dart';
 
 class HomePage extends StatefulWidget {
@@ -53,6 +54,16 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings, color: Colors.white54,),
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => SettingsPage()
+              ));
+            },
+          )
+        ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
