@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quotz/models/settings.dart';
 import 'package:quotz/pages/settings.dart';
 import 'package:quotz/services/quotes.dart';
 
@@ -16,6 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   TimeOfDay _timeOfDay;
   Timer _timer, _quoteTimer;
+
+  Settings _settings;
 
   @override
   void initState() {
@@ -59,7 +62,7 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.settings, color: Colors.white54,),
             onPressed: (){
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => SettingsPage()
+                builder: (BuildContext context) => SettingsPage(_settings)
               ));
             },
           )

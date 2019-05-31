@@ -3,15 +3,21 @@ import 'package:flutter/material.dart';
 import '../models/settings.dart';
 
 class SettingsPage extends StatefulWidget {
+  final Settings settings;
+
+  SettingsPage(this.settings);
+
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
   String _refreshPeriod = RefreshPeriod.hours;
-  int _refreshPeriodValue = 2;
+  // int _refreshPeriodValue = 2;
 
   String _quoteLength = QuoteLength.random;
+
+  TextEditingController _editingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +27,14 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white54),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: (){
+            int r = int.tryParse(_editingController.text);
+            if(r != null)
+              widget.settings.refreshPeriodValue = r;
+          },
+        ),
       ),
       body: ListView(
         children: <Widget>[
@@ -44,6 +58,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: <Widget>[
                         Flexible(
                           child: TextFormField(
+                            controller: _editingController,
+                            initialValue: widget.settings.refreshPeriodValue.toString(),
                             cursorColor: Colors.white54,
                             style: new TextStyle(
                               color: Colors.white,
@@ -148,6 +164,7 @@ class _SettingsPageState extends State<SettingsPage> {
               setState(() {
                 _refreshPeriod = RefreshPeriod.seconds; 
               });
+              widget.settings.refreshPeriod = _refreshPeriod;
               Navigator.of(context).pop();
             },
           ),
@@ -161,6 +178,7 @@ class _SettingsPageState extends State<SettingsPage> {
               setState(() {
                 _refreshPeriod = RefreshPeriod.minutes; 
               });
+              widget.settings.refreshPeriod = _refreshPeriod;
               Navigator.of(context).pop();
             },
           ),
@@ -174,6 +192,7 @@ class _SettingsPageState extends State<SettingsPage> {
               setState(() {
                 _refreshPeriod = RefreshPeriod.hours; 
               });
+              widget.settings.refreshPeriod = _refreshPeriod;
               Navigator.of(context).pop();
             },
           ),
@@ -198,6 +217,7 @@ class _SettingsPageState extends State<SettingsPage> {
               setState(() {
                 _quoteLength = QuoteLength.random; 
               });
+              widget.settings.quoteLength = _quoteLength;
               Navigator.of(context).pop();
             },
           ),
@@ -211,6 +231,7 @@ class _SettingsPageState extends State<SettingsPage> {
               setState(() {
                 _quoteLength = QuoteLength.short; 
               });
+              widget.settings.quoteLength = _quoteLength;
               Navigator.of(context).pop();
             },
           ),
@@ -224,6 +245,7 @@ class _SettingsPageState extends State<SettingsPage> {
               setState(() {
                 _quoteLength = QuoteLength.medium; 
               });
+              widget.settings.quoteLength = _quoteLength;
               Navigator.of(context).pop();
             },
           ),
@@ -237,6 +259,7 @@ class _SettingsPageState extends State<SettingsPage> {
               setState(() {
                 _quoteLength = QuoteLength.long; 
               });
+              widget.settings.quoteLength = _quoteLength;
               Navigator.of(context).pop();
             },
           ),
