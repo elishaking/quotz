@@ -10,9 +10,11 @@ class SettingsService{
     // pref.clear();
     String settings = pref.getString("settings");
     if(settings != null){
+      print("hello");
       Map<String, dynamic> settingsData = jsonDecode(settings);
       return Settings.fromMap(settingsData);
     } else{
+      print("not");
       return Settings(
         refreshPeriod: RefreshPeriod.hours,
         refreshPeriodValue: 2,
@@ -24,7 +26,7 @@ class SettingsService{
 
   Future<bool> storeSettings(Settings settings) async{
     SharedPreferences pref = await SharedPreferences.getInstance();
-    await pref.setString("settings", jsonEncode(settings));
+    await pref.setString("settings", jsonEncode(settings.toMap()));
     return true;
   }
 }

@@ -82,6 +82,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => SettingsPage(_settings)
               )).then((_){
+                _settingsService.storeSettings(_settings);
                 _quoteTimer.cancel();
                 _quoteTimer = Timer.periodic(_getDuration(), (Timer t){
                   _getQuote();

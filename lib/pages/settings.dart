@@ -194,6 +194,7 @@ class _SettingsPageState extends State<SettingsPage> {
   AlertDialog _buildAlertDialog(BuildContext context) {
     return AlertDialog(
       title: Text("Duration"),
+      backgroundColor: Colors.grey.shade400,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -244,6 +245,7 @@ class _SettingsPageState extends State<SettingsPage> {
   AlertDialog _buildQuoteLengthAlertDialog(BuildContext context){
     return AlertDialog(
       title: Text("Quote Length"),
+      backgroundColor: Colors.grey.shade400,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -306,8 +308,8 @@ class _SettingsPageState extends State<SettingsPage> {
   AlertDialog _buildQuoteCategoryAlertDialog(BuildContext context){
     return AlertDialog(
       title: Text("Category"),
+      backgroundColor: Colors.grey.shade400,
       content: SingleChildScrollView(
-        // padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: List.generate(QuoteCategory.categories.length, (int index){
