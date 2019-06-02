@@ -5,6 +5,7 @@ import 'package:quotz/models/settings.dart';
 import 'package:quotz/pages/settings.dart';
 import 'package:quotz/services/quotes.dart';
 import 'package:quotz/services/settings.dart';
+import 'package:quotz/utils/responsive.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -113,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                 // TextSpan(text: " \"", 
                 // style: TextStyle(color: Colors.white)),
               ], style: TextStyle(
-                fontSize: 20,
+                fontSize: responsive(context, 20),
                 color: Colors.white54,
               )),
             )
@@ -125,7 +126,7 @@ class _HomePageState extends State<HomePage> {
 
   Row _buildTime() {
     double space = 5;
-    double textSize = 120;
+    double textSize = responsive(context, 120);
     String t = _timeOfDay.format(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,9 +144,9 @@ class _HomePageState extends State<HomePage> {
         )),
         SizedBox(width: space * 2,),
         Padding(
-          padding: const EdgeInsets.only(top: 90),
+          padding: EdgeInsets.only(top: responsive(context, 80)),
           child: Text("${t.split(":")[1].split(" ")[1]}", style: TextStyle(
-            fontSize: 20
+            fontSize: responsive(context, 30)
           )),
         )
       ],
