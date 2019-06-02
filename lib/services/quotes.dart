@@ -4,11 +4,15 @@ import 'package:quotz/models/settings.dart';
 
 
 class QuotesService{
-  String _url = "https://quotz.skyblazar.com/api/quote";
-
+  // String _url = "https://quotz.skyblazar.com/api/quote";
+  String _url = "http://192.168.43.130:8000/api/quote";
+  String _accessKey = "dU7n@#s3ls/'sj8ksjdmV%42wx'ldjvs&8*AjskU";
+  
   Future<String> getQuote(Settings settings) async{
-    http.Response response = await http.get("$_url?c=${settings.refreshPeriod}&length=${settings.quoteLength}",
-    headers: {});
+    http.Response response = await http.get("$_url/random/${settings.quoteLength}",
+    headers: {
+      "Authorization": "Bearer: $_accessKey"
+    });
 
     return jsonDecode(response.body)["data"]["quote"];
   }
