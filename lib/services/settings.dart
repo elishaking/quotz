@@ -7,6 +7,7 @@ import 'package:quotz/models/settings.dart';
 class SettingsService{
   Future<Settings> getSettings() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.clear();
     String settings = pref.getString("settings");
     if(settings != null){
       Map<String, dynamic> settingsData = jsonDecode(settings);
@@ -15,7 +16,8 @@ class SettingsService{
       return Settings(
         refreshPeriod: RefreshPeriod.hours,
         refreshPeriodValue: 2,
-        quoteLength: QuoteLength.random
+        quoteLength: QuoteLength.random,
+        category: QuoteCategory.random
       );
     }
   }

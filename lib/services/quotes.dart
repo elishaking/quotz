@@ -9,7 +9,7 @@ class QuotesService{
   String _accessKey = "dU7n@#s3ls/'sj8ksjdmV%42wx'ldjvs&8*AjskU";
   
   Future<String> getQuote(Settings settings) async{
-    http.Response response = await http.get("$_url/random/${settings.quoteLength}",
+    http.Response response = await http.get("$_url/${settings.category}/${settings.quoteLength}",
     headers: {
       "Authorization": "Bearer: $_accessKey"
     });

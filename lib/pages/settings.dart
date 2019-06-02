@@ -127,7 +127,7 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("Quote Length"),
+                  Text("Length"),
                   RaisedButton(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)
@@ -143,6 +143,37 @@ class _SettingsPageState extends State<SettingsPage> {
                         context: context,
                         builder: (BuildContext context){
                           return _buildQuoteLengthAlertDialog(context);
+                        }
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
+          ),
+          Card(
+            color: Colors.white12,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text("Category"),
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Text(widget.settings.category),
+                        Icon(Icons.arrow_drop_down)
+                      ],
+                    ),
+                    onPressed: (){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context){
+                          return _buildQuoteCategoryAlertDialog(context);
                         }
                       );
                     },
@@ -265,6 +296,37 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  AlertDialog _buildQuoteCategoryAlertDialog(BuildContext context){
+    return AlertDialog(
+      title: Text("Category"),
+      content: SingleChildScrollView(
+        // padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(QuoteCategory.categories.length, (int index){
+            return Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text(QuoteCategory.categories[index]),
+                  trailing: Icon(Icons.arrow_forward_ios,
+                  size: 20,),
+                  contentPadding: EdgeInsets.only(left: 5),
+                  onTap: (){
+                    setState(() {
+                      widget.settings.category = QuoteCategory.categories[index]; 
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Divider(),
+              ],
+            );
+          })
+        ),
       ),
     );
   }
