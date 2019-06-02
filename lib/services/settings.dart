@@ -7,7 +7,7 @@ import 'package:quotz/models/settings.dart';
 class SettingsService{
   Future<Settings> getSettings() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.clear();
+    // pref.clear();
     String settings = pref.getString("settings");
     if(settings != null){
       Map<String, dynamic> settingsData = jsonDecode(settings);

@@ -32,6 +32,8 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: true,
+        title: Text("Settings", style: TextStyle(color: Colors.white54),),
         iconTheme: IconThemeData(color: Colors.white54),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -47,11 +49,12 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text("Quotes", style: Theme.of(context).textTheme.title.merge(TextStyle(
               color: Colors.white54
             )),),
           ),
+          SizedBox(height: 5),
           Card(
             color: Colors.white12,
             child: Padding(
