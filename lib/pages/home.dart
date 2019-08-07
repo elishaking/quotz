@@ -94,7 +94,9 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: EdgeInsets.only(
+          left: 20, right: 20, top: 70, bottom: 10
+        ),
         child: Column(
           children: <Widget>[
             Expanded(
@@ -132,23 +134,24 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text("${t.split(":")[0]}", style: TextStyle(
-          fontSize: textSize
+          height: 0,
+          fontSize: textSize,
         )),
         SizedBox(width: space,),
         Text(":", style: TextStyle(
-          fontSize: textSize
+          height: 0,
+          fontSize: textSize,
         )),
         SizedBox(width: space,),
         Text("${t.split(":")[1].split(" ")[0]}", style: TextStyle(
+          height: 0,
           fontSize: textSize
         )),
         SizedBox(width: space * 2,),
-        Padding(
-          padding: EdgeInsets.only(top: responsive(context, 80)),
-          child: Text("${t.split(":")[1].split(" ")[1]}", style: TextStyle(
-            fontSize: responsive(context, 30)
-          )),
-        )
+        Text("${t.split(":")[1].split(" ")[1]}", style: TextStyle(
+          height: 0,
+          fontSize: responsive(context, 30)
+        )),
       ],
     );
   }
