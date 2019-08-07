@@ -133,7 +133,9 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20,),
             Text(_quote.author, style: TextStyle(
               fontSize: responsive(context, 17),
-              color: Colors.white54,
+              fontWeight: FontWeight.bold,
+              color: Colors.white70,
+              letterSpacing: 0.7
             ))
           ],
         ),
