@@ -1,4 +1,4 @@
-package com.example.quotz;
+package com.king.quotz;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
