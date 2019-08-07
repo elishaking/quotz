@@ -37,6 +37,18 @@ android {
         disable 'InvalidPackage'
     }
 
+    // ndk {
+    //     abiFilters 'armeabi-v7a', 'x86', 'armeabi'
+    // }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a', 'x86_64', 'armeabi'
+            universalApk true
+        }
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.king.quotz"
