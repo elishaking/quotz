@@ -125,6 +125,21 @@ class _HomePageState extends State<HomePage> {
             //     color: Colors.white54,
             //   )),
             // ),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                style: TextStyle(fontFamily: 'Poppins',),
+                children: [
+                  TextSpan(text: "[ "),
+                  TextSpan(text: _quote.category, style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.7
+                  )),
+                  TextSpan(text: " ]")
+                ]
+              ),
+            ),
+            SizedBox(height: 20,),
             Text(_quote.quote, style: TextStyle(
               fontSize: responsive(context, 20),
               color: Colors.white54,

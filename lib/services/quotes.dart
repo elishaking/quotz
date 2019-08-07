@@ -16,7 +16,8 @@ class QuotesService{
     });
     // print(response.body);
     Map<String, dynamic> data = jsonDecode(response.body)["data"];
-    Quote quote = Quote(quote: data["quote"], author: data["author"]);
+    Quote quote = Quote(quote: data["quote"], author: data["author"], 
+    category: data["category"]);
 
     return quote;
   }
