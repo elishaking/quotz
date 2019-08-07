@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quotz/utils/responsive.dart';
 
 import '../models/settings.dart';
 
@@ -64,7 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: <Widget>[
                   Text("Refresh Every"),
                   Container(
-                    width: 170,
+                    width: responsive(context, 200),
                     child: Row(
                       children: <Widget>[
                         Flexible(
@@ -101,11 +102,14 @@ class _SettingsPageState extends State<SettingsPage> {
                               bottomRight: Radius.circular(30),
                             )
                           ),
-                          child: Row(
-                            children: <Widget>[
-                              Text(widget.settings.refreshPeriod),
-                              Icon(Icons.arrow_drop_down)
-                            ],
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                              children: <Widget>[
+                                Text(widget.settings.refreshPeriod),
+                                Icon(Icons.arrow_drop_down)
+                              ],
+                            ),
                           ),
                           onPressed: (){
                             showDialog(
