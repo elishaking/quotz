@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quotz/models/quote.dart';
 import 'package:quotz/models/settings.dart';
 import 'package:quotz/pages/settings.dart';
 import 'package:quotz/services/quotes.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Settings _settings;
 
   bool _loading = false;
-  String _quote;
+  Quote _quote = Quote(quote: "", author: "");
   QuotesService _quotesService;
 
   TimeOfDay _timeOfDay;
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
 
   void _getQuote() {
     _loading = true;
-    _quotesService.getQuote(_settings).then((String quote){
+    _quotesService.getQuote(_settings).then((Quote quote){
       setState(() {
         _quote = quote;
         _loading = false;  
@@ -95,7 +96,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         padding: EdgeInsets.only(
-          left: 20, right: 20, top: 70, bottom: 10
+          left: responsive(context, 20), right: responsive(context, 20), top: responsive(context, 70), bottom: 10
         ),
         child: Column(
           children: <Widget>[
@@ -105,21 +106,35 @@ class _HomePageState extends State<HomePage> {
                 child: _buildTime(),
               ),
             ),
-            _loading ? Center(
-              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white54),),
-            ) : RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(children: [
-                // TextSpan(text: "\" ",
-                // style: TextStyle(color: Colors.white)),
-                TextSpan(text: _quote),
-                // TextSpan(text: " \"", 
-                // style: TextStyle(color: Colors.white)),
-              ], style: TextStyle(
-                fontSize: responsive(context, 20),
-                color: Colors.white54,
-              )),
-            )
+            if(_loading) ...[
+              Center(
+                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white54),),
+              ),
+              SizedBox(height: 20,)
+            ],
+            // RichText(
+            //   textAlign: TextAlign.center,
+            //   text: TextSpan(children: [
+            //     // TextSpan(text: "\" ",
+            //     // style: TextStyle(color: Colors.white)),
+            //     TextSpan(text: _quote.quote),
+            //     // TextSpan(text: " \"", 
+            //     // style: TextStyle(color: Colors.white)),
+            //   ], style: TextStyle(
+            //     fontSize: responsive(context, 20),
+            //     color: Colors.white54,
+            //   )),
+            // ),
+            Text(_quote.quote, style: TextStyle(
+              fontSize: responsive(context, 20),
+              color: Colors.white54,
+            ),
+            textAlign: TextAlign.center,),
+            SizedBox(height: 20,),
+            Text(_quote.author, style: TextStyle(
+              fontSize: responsive(context, 17),
+              color: Colors.white54,
+            ))
           ],
         ),
       ),
