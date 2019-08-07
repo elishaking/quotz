@@ -79,7 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             keyboardType: TextInputType.numberWithOptions(decimal: false, signed: false),
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(30),

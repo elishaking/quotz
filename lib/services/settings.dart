@@ -16,8 +16,8 @@ class SettingsService{
     } else{
       // print("not");
       return Settings(
-        refreshPeriod: RefreshPeriod.hours,
-        refreshPeriodValue: 2,
+        refreshPeriod: RefreshPeriod.minutes,
+        refreshPeriodValue: 30,
         quoteLength: QuoteLength.random,
         category: QuoteCategory.random
       );
